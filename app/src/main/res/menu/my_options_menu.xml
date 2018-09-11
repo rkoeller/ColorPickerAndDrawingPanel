@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/color"
+        android:title="Change Color">
+        <menu>
+            <item android:id="@+id/black"
+                android:title="Black" />
+            <item android:id="@+id/red"
+            android:title="Red" />
+            <item android:id="@+id/orange"
+                android:title="Orange" />
+            <item android:id="@+id/yellow"
+                android:title="Yellow" />
+            <item android:id="@+id/green"
+                android:title="Green" />
+            <item android:id="@+id/blue"
+                android:title="Blue" />
+            <item android:id="@+id/violet"
+                android:title="Violet" />
+        </menu>
+    </item>
+    <item android:id="@+id/brushSize"
+        android:title="Brush Size">
+        <menu>
+            <item android:id="@+id/fivePx"
+                android:title="5px" />
+            <item android:id="@+id/tenPx"
+                android:title="10px" />
+            <item android:id="@+id/fifteenPx"
+                android:title="15px" />
+        </menu>
+    </item>
+    <item android:id="@+id/save"
+        android:title="Save" />
+</menu>
