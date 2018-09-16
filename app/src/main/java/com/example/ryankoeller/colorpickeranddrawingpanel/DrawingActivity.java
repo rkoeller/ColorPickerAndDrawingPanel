@@ -69,8 +69,11 @@ public class DrawingActivity extends AppCompatActivity {
 			case R.id.violet:
 				drawingView.setSelectedColor(Color.rgb(238,130,238));
 				return true;
-			case R.id.save:
-				save();
+			case R.id.savePng:
+				save("png");
+				return true;
+			case R.id.saveJPG:
+				save("jpg");
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -90,20 +93,32 @@ public class DrawingActivity extends AppCompatActivity {
 
 	// Saving to external device learned from
 	// https://developer.android.com/training/data-storage/files
-	public void save() {
+	public void save(String fileType) {
 		if(isExternalStorageWritable()) {
 			// Should save to the external storage device such as a SD card
 			// but it saves to internal storage for some reason...
 			String path = Environment.getExternalStorageDirectory()+ "/Pictures/";
 			File dir = new File(path);
 			dir.mkdirs();
-			File file = new File(dir, "drawing.png");
+			File file = new File(dir, "drawing." + fileType);
 
 			Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth(), drawingView.getHeight(), Bitmap.Config.ARGB_8888);
 			Canvas canvas = new Canvas(bitmap);
+
+			// make the bitmap background white
+			canvas.drawColor(Color.WHITE);
+
+			// draw the drawing view to the canvas
 			drawingView.draw(canvas);
 			try (FileOutputStream out = new FileOutputStream(file)) {
-				bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+				if(fileType.equals("png"))
+				{
+					bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+				}
+				else
+				{
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+				}
 				out.flush();
 				out.close();
 				Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();

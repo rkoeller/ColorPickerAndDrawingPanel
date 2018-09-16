@@ -20,5 +20,12 @@
         </menu>
     </item>
     <item android:id="@+id/save"
-        android:title="Save" />
+        android:title="Save">
+        <menu>
+            <item android:id="@+id/savePng"
+                android:title="Save as PNG" />
+            <item android:id="@+id/saveJPG"
+                android:title="Save as JPG"/>
+        </menu>
+    </item>
 </menu>
