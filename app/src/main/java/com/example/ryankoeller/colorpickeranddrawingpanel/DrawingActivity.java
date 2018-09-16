@@ -1,13 +1,23 @@
 package com.example.ryankoeller.colorpickeranddrawingpanel;
 
+import android.Manifest;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class DrawingActivity extends AppCompatActivity {
 
@@ -23,6 +33,7 @@ public class DrawingActivity extends AppCompatActivity {
 		drawingView = new DrawingView(this.getBaseContext());
 		ConstraintLayout l = findViewById(R.id.layout);
 		l.addView(drawingView);
+		ActivityCompat.requestPermissions(DrawingActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 	}
 
 	// Options Menu learned from
@@ -30,7 +41,7 @@ public class DrawingActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.my_options_menu, menu);
+		inflater.inflate(R.menu.options_menu, menu);
 		return true;
 	}
 
@@ -58,13 +69,52 @@ public class DrawingActivity extends AppCompatActivity {
 			case R.id.violet:
 				drawingView.setSelectedColor(Color.rgb(238,130,238));
 				return true;
+			case R.id.save:
+				save();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 	}
 
-	public void changeActivity(View view)
-	{
+	/* Checks if external storage is available for read and write */
+	public boolean isExternalStorageWritable() {
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			return true;
+		}
+		Toast.makeText(this, "Storage is non writable", Toast.LENGTH_SHORT).show();
+		return false;
+	}
+
+
+	// Saving to external device learned from
+	// https://developer.android.com/training/data-storage/files
+	public void save() {
+		if(isExternalStorageWritable()) {
+			// Should save to the external storage device such as a SD card
+			// but it saves to internal storage for some reason...
+			String path = Environment.getExternalStorageDirectory()+ "/Pictures/";
+			File dir = new File(path);
+			dir.mkdirs();
+			File file = new File(dir, "drawing.png");
+
+			Bitmap bitmap = Bitmap.createBitmap(drawingView.getWidth(), drawingView.getHeight(), Bitmap.Config.ARGB_8888);
+			Canvas canvas = new Canvas(bitmap);
+			drawingView.draw(canvas);
+			try (FileOutputStream out = new FileOutputStream(file)) {
+				bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+				out.flush();
+				out.close();
+				Toast.makeText(this, "File Saved", Toast.LENGTH_SHORT).show();
+			}
+			catch (IOException e) {
+				Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	public void changeActivity(View view) {
 		// finish() allows android back arrow to work correctly
 		finish();
 	}

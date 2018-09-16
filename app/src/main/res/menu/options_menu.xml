@@ -1,3 +1,4 @@
+<!-- xml can't have any uppercase letters in the file name for some weird reason -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/color"
         android:title="Change Color">
