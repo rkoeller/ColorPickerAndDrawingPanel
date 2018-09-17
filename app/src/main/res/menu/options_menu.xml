@@ -28,4 +28,7 @@
                 android:title="Save as JPG"/>
         </menu>
     </item>
+    <item android:id="@+id/clear"
+        android:title="Clear">
+    </item>
 </menu>

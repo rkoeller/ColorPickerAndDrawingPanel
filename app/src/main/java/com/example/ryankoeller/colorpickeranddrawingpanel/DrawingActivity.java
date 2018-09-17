@@ -75,6 +75,9 @@ public class DrawingActivity extends AppCompatActivity {
 			case R.id.saveJPG:
 				save("jpg");
 				return true;
+			case R.id.clear:
+				drawingView.clear();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -86,7 +89,7 @@ public class DrawingActivity extends AppCompatActivity {
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			return true;
 		}
-		Toast.makeText(this, "Storage is non writable", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Storage is non writable.", Toast.LENGTH_SHORT).show();
 		return false;
 	}
 

@@ -46,7 +46,6 @@ public class DrawingView extends View {
 		{
 			canvas.drawPath(myPaths.get(i), myPaints.get(i));
 		}
-		//canvas.drawPath(myDrawingPath, myPaint);
 	}
 
 	// Tutorials used for learning and understanding touch drawing
@@ -62,8 +61,6 @@ public class DrawingView extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		//myDrawingPath.setPaintColor(myPaint.getColor());
-
 		// getX and getY return floats
 		float x = event.getX();
 		float y = event.getY();
@@ -79,9 +76,7 @@ public class DrawingView extends View {
 					myPaths.add(new Path(path));
 					myPaints.add(new Paint(myPaint));
 				}
-				path = new DrawingPath();
-
-				//path.reset();
+				path = new Path();
 				path.moveTo(x, y);
 				break;
 			case MotionEvent.ACTION_MOVE:
@@ -115,4 +110,12 @@ public class DrawingView extends View {
 		this.myPaint.setColor(color);
 	}
 
+	public void clear() {
+		path.reset();
+		myPaths.clear();
+		myPaints.clear();
+		myPaint.setColor(Color.BLACK);
+		saveNewPath = true;
+		invalidate();
+	}
 }
