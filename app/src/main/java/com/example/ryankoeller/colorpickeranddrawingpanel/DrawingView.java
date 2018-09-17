@@ -1,3 +1,11 @@
+/**
+ * Author: Ryan Koeller
+ * Course: CEG-4110-01 Fall 2018
+ * Assignment: Homework #1
+ * Professor: Dr. Derek Doran
+ * Date: 9/8/2018
+ */
+
 package com.example.ryankoeller.colorpickeranddrawingpanel;
 
 import android.content.Context;
@@ -14,7 +22,6 @@ public class DrawingView extends View {
 	private Paint myPaint;
 	private Path path;
 	private ArrayList<Path> myPaths;
-	private Canvas myCanvas;
 	private ArrayList<Paint> myPaints;
 	boolean saveNewPath;
 
@@ -22,7 +29,6 @@ public class DrawingView extends View {
 		super(context);
 		path = new Path();
 		myPaths = new ArrayList<>();
-		myCanvas = new Canvas();
 		myPaint = new Paint();
 		myPaints = new ArrayList<>();
 		saveNewPath = true;
@@ -38,9 +44,6 @@ public class DrawingView extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		//super.onDraw(canvas);
-		//canvas.drawBitmap(myBitmap, 0, 0, myPaint);
-		//canvas.save();
 		canvas.drawPath(path, myPaint);
 		for(int i = 0; i < myPaths.size(); i++)
 		{
@@ -89,8 +92,6 @@ public class DrawingView extends View {
 				// Like releasing a mouse click
 				path.lineTo(x, y);
 				saveNewPath = true;
-				// Draw the custom path to the canvas
-				//myCanvas.drawPath(path, myPaint);
 				break;
 			default:
 				return false;

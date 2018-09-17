@@ -1,3 +1,11 @@
+/**
+ * Author: Ryan Koeller
+ * Course: CEG-4110-01 Fall 2018
+ * Assignment: Homework #1
+ * Professor: Dr. Derek Doran
+ * Date: 9/8/2018
+ */
+
 package com.example.ryankoeller.colorpickeranddrawingpanel;
 
 import android.Manifest;
