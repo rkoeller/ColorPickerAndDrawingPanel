@@ -2,6 +2,11 @@
 ColorPickerAndDrawingPanel is an app developed for Android 8.0 Oreo. It allows the user to change text color in a text box randomly and draw to the screen with a selected color and the ability to save the drawing.
 ## Installation Requirements
 * Android 8.0 device
+## Installation
+* Store app-release.apk into android device
+* Navigate to .apk in your android's file system
+* Tap .apk to start installation
+* Follow on screen instructions
 ## Usage
 Once started the app will open the ColorPicker activity where the user can type text into a EditText object and/or press the "tap me" button.
 <br />
